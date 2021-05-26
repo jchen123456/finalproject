@@ -1,61 +1,41 @@
 
 #include <iostream>
-#include <fstream>
-#include <vector>
-#include <sstream>
-using namespace std;
-int main(void)
-{
+  #include <fstream>
+  #include <vector>
+ #include <string>
 
-    // 读取CSV文件
-     struct CSVD {
+  using namespace std;
+
+  class csvdata{
+  public:
       string day;
-      string symbol;
-      float open;
-      float high;
-      float low;
-      float close;
-      float volume;
-      float outstanding_share;
-      float turnover;
+            string symbol;
+            float open;
+            float high;
+            float low;
+            float close;
+            float volume;
+            float outstanding_share;
+            float turnover;
+ };//行的类定义
 
-     };
-     ifstream inFile("G:\BaiduNetdiskDownload\all_zh_stock_daily.csv", std::ios::in);
-
-     string lineStr;
-     vector<struct CSVD> csvData;
-     getline(inFile, lineStr); // 跳过第一行(非数据区域)
-     while (getline(inFile, lineStr)) {
-          stringstream ss(lineStr); // string数据流化
-          string str;
-          struct CSVD csvdata;
-          getline(ss, str, ','); // 获取 day
-          csvdata.day = str;
-          std::getline(ss, str, ','); // 获取 symbol
-          csvdata.symbol = str;
-          std::getline(ss, str, ','); // 获取 open
-          csvdata.open = stof(str);
-          std::getline(ss, str, ','); // 获取 high
-          csvdata.high = stof(str);
-          std::getline(ss, str, ','); // 获取 low
-          csvdata.low = stof(str);
-          std::getline(ss, str, ','); // 获取 close
-          csvdata.close = stof(str);
-          std::getline(ss, str, ','); // 获取 volume
-          csvdata.volume = stof(str);
-          std::getline(ss, str, ','); // 获取 outstanding_share
-          csvdata.outstanding_share = stof(str);
-          std::getline(ss, str, ','); // 获取 turnover
-          csvdata.turnover = stof(str);
-
-
-          csvData.push_back(csvdata);
+ int main()
+ {
+     vector<csvdata> incsv;
+     csvdata intp;
+     FILE *fp;
+     fp=fopen("G:\all_zh_stock_daily.csv","r");//你自己的文件路径
+     while(1){
+        fscanf(fp,"%s,%s,%f,%f,%f,%f,%f,%f,%f",&intp.day,&intp.symbol,&intp.open,&intp.high,&intp.low,&intp.close,&intp.volume,&intp.outstanding_share,&intp.turnover);
+         incsv.push_back(intp);
+         if (feof(fp))break;
      }
-     // 显示读取的数据
-     for (int i = 0; i < csvData.size(); i++ ) {
-          cout << csvData[i].day << "," << csvData[i].symbol << "," << csvData[i].open<<","<<csvData[i].high <<","<<csvData[i].low <<","<<csvData[i].close<<","<<csvData[i].volume<<","<<csvData[i].outstanding_share<<","<<csvData[i].turnover<< endl;
-     }
+     fclose(fp);
+     for(int i=0;i<9;i++)
+     {
+         cout<<incsv[i].day<<" "<<incsv[i].symbol<<" "<<incsv[i].open<<" "<<incsv[i].high<<" "<<incsv[i].low<<" "<<incsv[i].close<<" "<<incsv[i].volume<<" "<<incsv[i].outstanding_share<<" "<<incsv[i].turnover<<endl;
+              }//输出显示每行的数据
 
-     getchar();
-     return 0;
-}
+  system("pause");
+ return 0;
+ }
