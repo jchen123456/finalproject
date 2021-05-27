@@ -30,7 +30,7 @@
          if (feof(fp))break;
      }
      fclose(fp);
-     for(int i=0;i<9;i++)
+     for(int i=0;i<incsv.size();i++)
      {
          cout<<incsv[i].day<<" "<<incsv[i].symbol<<" "<<incsv[i].open<<" "<<incsv[i].high<<" "<<incsv[i].low<<" "<<incsv[i].close<<" "<<incsv[i].volume<<" "<<incsv[i].outstanding_share<<" "<<incsv[i].turnover<<endl;
               }//输出显示每行的数据
